@@ -14,13 +14,13 @@ export const deleteName = () => ({
 });
 
 // 引数nameをとり、{type: "ADD_NAME", name: name}を返すjsの関数。
-export const addName = name => ({  
+export const setName = name => ({  
   type: 'ADD_NAME',
   name: name,
 });
 
 INITIAL_STATE = {
-  name: 'initial'
+  name: 'Nanasi'
 }
 
 // reducers.js
