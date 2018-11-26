@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 import { View, Text, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { setName, deleteName } from './redux/userRedux'
-import { setSuperUserName } from './redux/superUserRedux'
 import {store} from './redux/index'
 
 export class Home extends Component {
@@ -21,9 +20,9 @@ export class Home extends Component {
             title="setName"
           />
         </View>
-        <Text style={{marginTop: 100}}>superUser name is {this.props.superUserName}.</Text>
+        <Text style={{marginTop: 100}}>superUser name is {this.props.superUserName}. I'm {this.props.superUserAge} years old.</Text>
           <Button
-            onPress={() => this.props.setSuperUserName('スーパー　カバヤ')}
+            onPress={() => this.props.setSuperUser('スーパー　カバヤ', 24)}
             title="set super user Name"
           />
         {/* ストアは、以下の様なJSONで記述されています。combine reducerのキーにuserを使ったのでuserプロパティの中に、stateが保存されます。 */}
@@ -37,14 +36,15 @@ export class Home extends Component {
 const mapStateToProps = state => ({
 　 // storeは巨大なJsonの塊なので、nameにjsonから取って来たデータを代入している。 
   name: state.user.name,
-  superUserName: state.superUser.name
+  superUserName: state.superUser.name,
+  superUserAge: state.superUser.age
 })
 
 const mapDispatchToProps = dispatch => ({
   // actionCreatorを記述。
   setName: (name) => dispatch(setName(name)),
   deleteName: () => dispatch(deleteName()),
-  setSuperUserName: (name) => dispatch(setSuperUserName(name))
+  setSuperUser: (name, age) => dispatch({type: 'SET_SUPER_USER_NAME', name, age})
 })
 
 export default connect(
