@@ -2,8 +2,9 @@
 import React, {Component} from 'react'
 import { View, Text, Button } from 'react-native'
 import { connect } from 'react-redux'
-import { setName, deleteName } from './redux'
-import {store} from './redux'
+import { setName, deleteName } from './redux/userRedux'
+import { setSuperUserName } from './redux/superUserRedux'
+import {store} from './redux/index'
 
 export class Home extends Component {
   render() {
@@ -20,10 +21,14 @@ export class Home extends Component {
             title="setName"
           />
         </View>
+        <Text style={{marginTop: 100}}>superUser name is {this.props.superUserName}.</Text>
+          <Button
+            onPress={() => this.props.setSuperUserName('スーパー　カバヤ')}
+            title="set super user Name"
+          />
         {/* ストアは、以下の様なJSONで記述されています。combine reducerのキーにuserを使ったのでuserプロパティの中に、stateが保存されます。 */}
         {/* stor のstateを取り出すにはgetStateメソッドを使います。JSON.stringifyで文字列へと変換しています。 */}
-        <Text>現在のstore</Text>
-        <Text style={{marginBottom: 100}}>{JSON.stringify(store.getState())}</Text>
+        <Text style={{marginBottom: 100}}>現在のstore: {JSON.stringify(store.getState())}</Text>
       </View>
     )
   }
@@ -31,14 +36,16 @@ export class Home extends Component {
 
 const mapStateToProps = state => ({
 　 // storeは巨大なJsonの塊なので、nameにjsonから取って来たデータを代入している。 
-  name: state.user.name
+  name: state.user.name,
+  superUserName: state.superUser.name
 })
 
-const mapDispatchToProps = {
+const mapDispatchToProps = dispatch => ({
   // actionCreatorを記述。
-  setName,
-  deleteName
-}
+  setName: (name) => dispatch(setName(name)),
+  deleteName: () => dispatch(deleteName()),
+  setSuperUserName: (name) => dispatch(setSuperUserName(name))
+})
 
 export default connect(
   mapStateToProps,

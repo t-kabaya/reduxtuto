@@ -1,7 +1,7 @@
 // index.js
 import React, {Component} from 'react'
 import { Provider } from 'react-redux'
-import { store } from './redux'
+import { store } from './redux/index'
 import Home from './home'
 
 export default class reduxApp extends Component {
