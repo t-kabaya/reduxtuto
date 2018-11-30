@@ -8,7 +8,7 @@ import {store} from './redux/index'
 export class Home extends Component {
   render() {
     return (
-      <View style={{flex: 1, justifyContent: 'space-around', alignItems: 'center'}}>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{marginTop: 100}}>My name is {this.props.name}.</Text>
         <View style={{flexDirection: 'row'}}>
           <Button
@@ -21,10 +21,16 @@ export class Home extends Component {
           />
         </View>
         <Text style={{marginTop: 100}}>superUser name is {this.props.superUserName}. I'm {this.props.superUserAge} years old.</Text>
+        <View style={{flexDirection: 'row'}}>
           <Button
             onPress={() => this.props.setSuperUser('スーパー　カバヤ', 24)}
             title="set super user Name"
           />
+          <Button
+            onPress={() => this.props.deleteSuperUser()}
+            title="delete super user"
+          />
+        </View>
         {/* ストアは、以下の様なJSONで記述されています。combine reducerのキーにuserを使ったのでuserプロパティの中に、stateが保存されます。 */}
         {/* stor のstateを取り出すにはgetStateメソッドを使います。JSON.stringifyで文字列へと変換しています。 */}
         <Text style={{marginBottom: 100}}>現在のstore: {JSON.stringify(store.getState())}</Text>
@@ -44,7 +50,8 @@ const mapDispatchToProps = dispatch => ({
   // actionCreatorを記述。
   setName: (name) => dispatch(setName(name)),
   deleteName: () => dispatch(deleteName()),
-  setSuperUser: (name, age) => dispatch({type: 'SET_SUPER_USER_NAME', name, age})
+  setSuperUser: (name, age) => dispatch({type: 'SET_SUPER_USER_NAME', name, age}),
+  deleteSuperUser: () => dispatch({type: 'DELETE_SUPER_USER'}),
 })
 
 export default connect(
